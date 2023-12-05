@@ -7,6 +7,6 @@ import (
 )
 
 func SystemTest(c *gin.Context) {
-	systemTestResponse := stresponse.SystemTestResponse{Status: 200, ResponseMessage: "Application is working successfully"}
+	systemTestResponse := stresponse.SystemTestResponse{Status: 200, Message: "Application is working successfully"}
 	c.JSON(http.StatusOK, systemTestResponse)
 }

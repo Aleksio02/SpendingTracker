@@ -19,7 +19,6 @@ func LoadConfig(configPaths ...string) error {
 	v := viper.New()
 	v.SetConfigName("application")
 	v.SetConfigType("yml")
-	v.SetEnvPrefix("blueprint")
 	v.AutomaticEnv()
 	for _, path := range configPaths {
 		v.AddConfigPath(path)

@@ -1,6 +1,6 @@
 package response
 
 type SystemTestResponse struct {
-	Status          int    `json:"status"`
-	ResponseMessage string `json:"responseMessage"`
+	Status  int    `json:"status"`
+	Message string `json:"Message"`
 }
