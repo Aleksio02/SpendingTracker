@@ -2,3 +2,10 @@ application:
   name: "auth"
   version: "0.0.1"
   port: 8081
+
+db:
+  name: "postgres"
+  username: "stadmin"
+  password: "stadmin"
+  host: "localhost"
+  port: 5432
