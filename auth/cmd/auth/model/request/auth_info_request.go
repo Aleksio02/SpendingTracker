@@ -1,7 +1,6 @@
 package response
 
-type AuthInfoRequest struct {
-	Username int `json:"username"`
-	Password int `json:"password"`
-	Response any `json:"response"`
+type AuthRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
