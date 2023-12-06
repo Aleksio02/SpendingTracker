@@ -20,17 +20,9 @@ func GetUserByToken(c *gin.Context) {
 }
 
 func RegistrationUser(data *gin.Context) {
-	token := strings.Split(data.GetHeader("Authorization"), " ")[1]
-	fmt.Println(token)
-
 	requestBody := request.AuthInfoRequest{}
 	utils.WriteBodyToObject(data.Request.Body, &requestBody)
 
-	if requestBody.Status == 200 {
-		responseInfo := response.UserInfoResponse{Status: 200, Message: "User registered successfully", Token: token, Username: "Supervisor", Role: "admin"}
-		data.JSON(http.StatusOK, responseInfo)
-	} else if requestBody.Status == 400 {
-		responseInfo := response.UserInfoResponse{Status: 400, Message: "User with this name is exist"}
-		data.JSON(http.StatusBadRequest, responseInfo)
-	}
+	responseInfo := response.UserInfoResponse{Status: 200, Message: "User registered successfully", Token: "ksfhfkdksjaljsvbdsjkajsscfbk", Username: "Supervisor", Role: "admin"}
+	data.JSON(http.StatusOK, responseInfo)
 }
