@@ -13,6 +13,7 @@ func main() {
 	}
 
 	r := gin.New()
+
 	v1 := r.Group("/" + config.Config.Application.Name)
 	{
 		v1.GET("/system/test", controller.SystemTest)
