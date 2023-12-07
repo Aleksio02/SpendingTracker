@@ -13,10 +13,12 @@ func main() {
 	}
 
 	r := gin.New()
+
 	v1 := r.Group("/" + config.Config.Application.Name)
 	{
 		v1.GET("/system/test", controller.SystemTest)
 		v1.GET("/getUserByToken", controller.GetUserByToken)
+		v1.POST("/register", controller.RegisterUser)
 	}
 	r.Run(fmt.Sprintf(":%v", config.Config.Application.Port))
 }

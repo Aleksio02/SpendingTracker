@@ -1,7 +1,9 @@
 package controller
 
 import (
-	"auth/cmd/auth/model/response"
+	request "auth/cmd/auth/model/request"
+	response "auth/cmd/auth/model/response"
+	"auth/cmd/auth/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -15,4 +17,13 @@ func GetUserByToken(c *gin.Context) {
 	userResponse := response.UserInfoResponse{Status: 200, Message: "Success", Token: token, Username: "Supervisor", Role: "admin"}
 
 	c.JSON(http.StatusOK, userResponse)
+}
+
+func RegisterUser(data *gin.Context) {
+
+	requestBody := request.AuthRequest{}
+	utils.WriteBodyToObject(data.Request.Body, &requestBody)
+
+	responseInfo := response.UserInfoResponse{Status: 200, Message: "User registered successfully", Token: "jfdkjkjdkfhdjnkdjokdokspkp", Username: requestBody.Username, Role: "admin"}
+	data.JSON(http.StatusOK, responseInfo)
 }
