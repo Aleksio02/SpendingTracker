@@ -1,22 +1,39 @@
 package controller
 
 import (
+	"auth/cmd/auth/model"
 	request "auth/cmd/auth/model/request"
 	response "auth/cmd/auth/model/response"
+	"auth/cmd/auth/service"
+	"auth/cmd/auth/util"
 	"auth/cmd/auth/utils"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
 )
 
 func GetUserByToken(c *gin.Context) {
-	token := strings.Split(c.GetHeader("Authorization"), " ")[1]
-	fmt.Println(token)
+	authorizationHeaderValue := c.GetHeader("Authorization")
+	if len(authorizationHeaderValue) > 0 {
+		jwtToken := strings.Split(authorizationHeaderValue, " ")[1]
+		decodedUser := model.User{}
+		token, err := util.ParseJWTToken(jwtToken, &decodedUser)
 
-	userResponse := response.UserInfoResponse{Status: 200, Message: "Success", Token: token, Username: "Supervisor", Role: "admin"}
+		if err == nil && token.Valid {
+			foundUser, err := service.GetUserByUsername(decodedUser)
+			if err == nil {
+				userResponse := response.UserInfoResponse{Status: 200,
+					Message:  "Success",
+					Token:    jwtToken,
+					Username: foundUser.Username,
+					Role:     foundUser.Role}
+				c.JSON(http.StatusOK, userResponse)
+				return
+			}
+		}
+	}
 
-	c.JSON(http.StatusOK, userResponse)
+	c.JSON(http.StatusUnauthorized, response.UserInfoResponse{Status: 401, Message: "User is not authorized"})
 }
 
 func RegisterUser(data *gin.Context) {
