@@ -2,13 +2,11 @@ package controller
 
 import (
 	"auth/cmd/auth/model"
-	"auth/cmd/auth/model/response"
-	"auth/cmd/auth/service"
-	"auth/cmd/auth/util"
 	request "auth/cmd/auth/model/request"
 	response "auth/cmd/auth/model/response"
+	"auth/cmd/auth/service"
+	"auth/cmd/auth/util"
 	"auth/cmd/auth/utils"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
