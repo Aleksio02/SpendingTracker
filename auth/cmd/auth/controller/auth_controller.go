@@ -1,16 +1,11 @@
 package controller
 
 import (
-	"auth/cmd/auth/config"
 	"auth/cmd/auth/model"
 	"auth/cmd/auth/model/response"
 	"auth/cmd/auth/service"
 	"auth/cmd/auth/util"
-	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
-	"io"
-	"io/ioutil"
 	"net/http"
 	"strings"
 )
