@@ -5,6 +5,10 @@ import (
 	"auth/cmd/auth/model/response"
 	"auth/cmd/auth/service"
 	"auth/cmd/auth/util"
+	request "auth/cmd/auth/model/request"
+	response "auth/cmd/auth/model/response"
+	"auth/cmd/auth/utils"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -32,4 +36,13 @@ func GetUserByToken(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusUnauthorized, response.UserInfoResponse{Status: 401, Message: "User is not authorized"})
+}
+
+func RegisterUser(data *gin.Context) {
+
+	requestBody := request.AuthRequest{}
+	utils.WriteBodyToObject(data.Request.Body, &requestBody)
+
+	responseInfo := response.UserInfoResponse{Status: 200, Message: "User registered successfully", Token: "jfdkjkjdkfhdjnkdjokdokspkp", Username: requestBody.Username, Role: "admin"}
+	data.JSON(http.StatusOK, responseInfo)
 }
