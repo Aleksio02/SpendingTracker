@@ -23,6 +23,9 @@ type appConfig struct {
 		Host     string
 		Port     int
 	}
+	Jwt struct {
+		Secret string
+	}
 }
 
 func LoadConfig(configPaths ...string) error {
