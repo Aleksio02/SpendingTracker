@@ -1,30 +1,215 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="intro">
+    <div class="intro_fade"></div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+
+  <router-view></router-view>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script>
+export default {
+  name: 'App',
+  created() {
+    this.$router.push('/login');
+  },
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+</script>
+
+<style>
+body {
+  width: 100%;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+
+  font-size: 17px;
+
+  color: #ffffff;
+  background-color: #00111e;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-top: 60px;
+}
+
+.intro {
+  width: 100%;
+  display: block;
+  padding: 0;
+  height: 100%;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  z-index: -1;
+
+  background: url(assets/bg.jpg) center no-repeat, #062A4D;
+  background-blend-mode: soft-light;
+  background-size: cover;
+
+  user-select: none;
+}
+
+.intro_fade {
+  height: 100%;
+  background: linear-gradient(transparent -300px, #00111e)
+}
+
+/* ============================================================================= */
+/* Форма входа на сайт ========================================================= */
+/* ============================================================================= */
+
+.signup_form {
+  padding: 0 15px;
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
+#message {
+  padding: 10px;
+  max-width: 300px;
+
+  font-size: 20px;
+  text-align: center;
+
+  border-bottom: 1px solid transparent;
+  border-image: radial-gradient(#ffffff 50%, transparent);
+  border-image-slice: 1;
+}
+
+#wp_signup_form,
+#login {
+  max-width: 300px !important;
+  margin: auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+form label {
+  font-size: 15px;
+}
+
+.form_block.terms {
+  margin: 10px 0;
+  padding: 10px 0;
+
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  border-image: radial-gradient(#ffffff 50%, transparent);
+  border-image-slice: 1;
+}
+
+.form_block label {
+  line-height: 25px;
+}
+
+#terms {
+  width: 30px;
+  margin: 0 20px 0 0;
+}
+
+.input_wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+form input {
+  margin: 5px 0 15px;
+  padding: 0 10px;
+  width: 100%;
+  height: 30px;
+  max-height: 30px;
+  border: 1px #ffffff solid;
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+button[type="submit"] {
+  width: 100%;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.switch-page-link {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.switch-page-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.submit_btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submit_btn {
+  background: none;
+  color: #ffffff;
+  line-height: 20px;
+
+  transition: color, background .3s linear;
+}
+
+.submit_btn:hover {
+  color: #000000;
+  background-color: #ffffff;
+
+  transition: color, background .3s linear;
+}
+
+
+.lost_password {
+  text-align: center;
+  margin: 10px auto;
+  max-width: 300px;
+}
+
+.lost_password a {
+  color: #ff6d6d;
+}
+
+.no_account {
+  max-width: 300px;
+  margin: auto;
+  font-size: 15px;
+  text-align: center;
+}
+
+
+/* ============================================================================= */
+/* Основная страница =========================================================== */
+/* ============================================================================= */
+
+a {
+  text-decoration: none;
+  color: #6dff72;
+}
+
+template {
+  width: 100%;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+
+  font-size: 17px;
+
+  color: #ffffff;
+  background-color: #00111e;
 }
 </style>
