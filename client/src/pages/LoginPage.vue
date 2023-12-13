@@ -3,18 +3,12 @@
         <form id="login" name="form" action="<?php bloginfo('template_directory')?>/registration/signin.php" method="post">
 
             <p id="message">Вход на сайт</p>
-            <div class="form_block">
-                <div class="input_wrapper">
-                    <input id="username" type="text" placeholder="Логин" name="username">
-                </div>
-            </div>
-
-            <div class="form_block">
-                <div class="input_wrapper">
-                    <input id="password" type="password" placeholder="Пароль" name="password">
-                </div>
-            </div>
-            
+            <form-block>
+              <username-text-field/>
+            </form-block>
+            <form-block>
+              <password-text-field>Пароль</password-text-field>
+            </form-block>
             <input id="submit" class="submit_btn" type="submit" name="submit" value="Войти">
 
         </form>

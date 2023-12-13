@@ -3,22 +3,12 @@
 
     <form id="wp_signup_form" @submit.prevent="register">
     <p id="message">Регистрация</p>
-
-      <div class="form_block">
-        <label for="username">Логин</label>
-        <div class="input_wrapper">
-          <input type="text" name="username" id="username" placeholder="Введите логин" value="" required>
-        </div>
-        <div id="username_err" class="msg"></div>
-      </div>
-
-      <div class="form_block">
-        <label for="email">Email</label>
-        <div class="input_wrapper">
-          <input type="text" name="email" id="email" placeholder="Введите E-mail" value="" required>
-        </div>
-        <div id="email_err" class="msg"></div>
-      </div>
+      <form-block>
+        <username-text-field/>
+      </form-block>
+      <form-block>
+        <email-text-field/>
+      </form-block>
 
       <div class="form_block">
         <label for="password">Пароль</label>
@@ -59,6 +49,7 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
+      confirmPasswordErrorMessage: '',
       agreeTerms: true
     };
   },
