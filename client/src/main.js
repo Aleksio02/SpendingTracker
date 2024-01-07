@@ -1,5 +1,16 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router.js';
+import pages from "@/pages";
+import components from "@/components";
+import './assets/index.css'
 
-createApp(App).mount('#app')
+const app = createApp(App);
+
+pages.forEach(page => app.component(page.name, page))
+components.forEach(component => app.component(component.name, component))
+
+
+
+app.use(router);
+app.mount('#app');
