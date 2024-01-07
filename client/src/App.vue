@@ -1,215 +1,320 @@
 <template>
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Montserrat:wght@500&display=swap
+    " rel="stylesheet">
+
+  <div class="header" v-if="!isLoginPage && !isRegisterPage">
+    <div class="header_inner">
+
+      <div class="user_info">
+        <div class="profile_photo" style="background: url('<?php bloginfo('template_directory')?>/uploads/profile_photos/<?= $cur_user_avatar ?>') center no-repeat; background-size: cover">
+        </div>
+
+        <div class="user_top">
+          <div class="user_icons">
+            <a class='logout_btn' href="<?php bloginfo('template_directory')?>/registration/logout.php">
+              <img class="icon logout" src="./assets/icons/logout.png" alt="">
+            </a>
+            <img class="icon" src="./assets/icons/notifications.png" alt="">
+            <img class="icon" src="./assets/icons/rating.png" alt="">
+          </div>
+
+          <a class="user_name" href="http://localhost/DVA_studio/login/">Владимир Двойнишников</a>
+        </div>
+
+      </div>
+
+      <div class="nav" id="nav">
+        <a class="nav_item" href="http://localhost/DVA_studio/news/" target="_self">Новости</a>
+        <a class="nav_item" href="http://localhost/DVA_studio/games/" target="_self">Статистика</a>
+        <a class="nav_item" href="http://localhost/DVA_studio/shop/" target="_self">Инструкция</a>
+        <a class="nav_item" href="http://localhost/DVA_studio/about_us/" target="_self">О нас</a>
+        <a class="logo" href="index.html" target="_self"></a>
+      </div>
+    </div>
+
+    <div class="top_buttons">
+      <div class="top_buttons-left">
+        <router-link to="/" class="button" id="account">Личный кабинет</router-link>
+      </div>
+      <div class="top_buttons-right">
+        <a class="button" id="co-working" href="#">Сотрудничество</a>
+      </div>
+    </div>
+  </div>
+
   <div class="intro">
     <div class="intro_fade"></div>
   </div>
 
-  <router-view></router-view>
+  <div class="section">
+    <div class="container">
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'App',
-  created() {
-    this.$router.push('/login');
-  },
+  computed: {
+    isLoginPage() {
+      return this.$route.path === '/login'; // Проверка текущего маршрута на страницу входа (login)
+    },
+    isRegisterPage() {
+      return this.$route.path === '/register'; // Проверка текущего маршрута на страницу регистрации (register)
+    }
+  }
+  // created() {
+  //   this.$router.push('/');
+  // },
 }
 </script>
 
-<style>
-body {
-  width: 100%;
-  margin: 0;
+<style scoped>
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  padding: 0 20px;
+  margin: 0 auto;
   font-family: 'Montserrat', sans-serif;
-
-  font-size: 17px;
-
-  color: #ffffff;
-  background-color: #00111e;
 }
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin-top: 60px;
-}
+.header {
+  width: auto;
+  height: 70px;
+  padding: 0 100px;
 
-.intro {
-  width: 100%;
-  display: block;
-  padding: 0;
-  height: 100%;
-  text-align: center;
+  font-family: 'Montserrat';
+  font-size: 15px;
+  text-transform: uppercase;
+  line-height: 70px;
+
+  border-bottom: 1px solid transparent;
+  border-image: radial-gradient(#ffffff 60%, transparent);
+  border-image-slice: 1;
+
+  background-color: #000000;
   position: fixed;
   top: 0;
-  z-index: -1;
-
-  background: url(assets/bg.jpg) center no-repeat, #062A4D;
-  background-blend-mode: soft-light;
-  background-size: cover;
-
-  user-select: none;
-}
-
-.intro_fade {
-  height: 100%;
-  background: linear-gradient(transparent -300px, #00111e)
-}
-
-/* ============================================================================= */
-/* Форма входа на сайт ========================================================= */
-/* ============================================================================= */
-
-.signup_form {
-  padding: 0 15px;
-  position: absolute;
-  right: 0;
   left: 0;
+  right: 0;
+  z-index: 100;
 }
 
-#message {
-  padding: 10px;
-  max-width: 300px;
-
-  font-size: 20px;
-  text-align: center;
-
-  border-bottom: 1px solid transparent;
-  border-image: radial-gradient(#ffffff 50%, transparent);
-  border-image-slice: 1;
-}
-
-#wp_signup_form,
-#login {
-  max-width: 300px !important;
-  margin: auto;
-}
-
-h2 {
-  text-align: center;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-form label {
-  font-size: 15px;
-}
-
-.form_block.terms {
-  margin: 10px 0;
-  padding: 10px 0;
-
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
-  border-image: radial-gradient(#ffffff 50%, transparent);
-  border-image-slice: 1;
-}
-
-.form_block label {
-  line-height: 25px;
-}
-
-#terms {
-  width: 30px;
-  margin: 0 20px 0 0;
-}
-
-.input_wrapper {
+.header_inner {
+  width: 100%;
+  height: inherit;
   display: flex;
-  width: 100%;
+  justify-content: space-between;
+}
+
+.user_info {
+  display: flex;
+}
+
+.user_top {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  margin-left: 20px;
 }
 
-form input {
-  margin: 5px 0 15px;
-  padding: 0 10px;
-  width: 100%;
-  height: 30px;
-  max-height: 30px;
-  border: 1px #ffffff solid;
-  border-radius: 50px;
-  font-family: 'Montserrat', sans-serif;
+.user_icons {
+  display: flex;
+  justify-content: left;
+  margin: 5px 0;
 }
 
-button[type="submit"] {
-  width: 100%;
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.user_icons .icon {
+  margin-right: 20px;
 }
 
-.switch-page-link {
-  text-align: left;
-  margin-top: 20px;
+.icon {
+  -webkit-filter: sepia(1) saturate(0);
+  filter: sepia(1) saturate(0);
+  width: 15px;
+  height: 15px;
 }
 
-.switch-page-link a {
-  color: #007bff;
-  text-decoration: none;
+.icon:hover {
+  -webkit-filter: sepia(1) hue-rotate(70deg) saturate(100);
+  filter: sepia(1) hue-rotate(70deg) saturate(100);
 }
 
-.submit_btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.logout_btn {
+  line-height: 0;
 }
 
-.submit_btn {
-  background: none;
-  color: #ffffff;
+.profile_photo {
+  width: 100px;
+  height: 100px;
+
+  margin-top: 15px;
+
+  background-color: #555555;
+
+  border: 2px #FFFFFF solid;
+  border-radius: 50%;
+}
+
+.user_name {
+  margin-top: 7px;
   line-height: 20px;
-
-  transition: color, background .3s linear;
+  color: #ffffff;
+  text-transform: none;
 }
 
-.submit_btn:hover {
-  color: #000000;
-  background-color: #ffffff;
-
-  transition: color, background .3s linear;
-}
-
-
-.lost_password {
-  text-align: center;
-  margin: 10px auto;
-  max-width: 300px;
-}
-
-.lost_password a {
-  color: #ff6d6d;
-}
-
-.no_account {
-  max-width: 300px;
-  margin: auto;
-  font-size: 15px;
-  text-align: center;
-}
-
-
-/* ============================================================================= */
-/* Основная страница =========================================================== */
-/* ============================================================================= */
-
-a {
-  text-decoration: none;
+.user_name:hover {
   color: #6dff72;
 }
 
-template {
+.top_buttons {
+  display: flex;
+  justify-content: space-between;
+
+  width: inherit;
+  line-height: 25px;
+
+  margin-top: 15px;
+  padding: 0 0 0 110px;
+}
+
+.top_buttons * {
+  line-height: inherit;
+}
+
+.button {
+  margin: 0 15px;
+  padding: 5px 30px;
+
+  border: 1px #ffffff solid;
+  border-radius: 50px;
+
+  font-size: 13px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #dff4ff;
+
+  transition: color, background .3s linear;
+}
+
+.button.profile {
+  margin-right: 130px;
+}
+
+.button:hover {
+  background-color: #ffffff;
+  color: #000000;
+
+  transition: color, background .3s linear;
+}
+
+.logo {
+  height: 100%;
+  width: 130px;
+
+  background: url(assets/logo.png) center no-repeat;
+  background-size: contain;
+
+  filter: drop-shadow(0 0 0 #000000) brightness(150%);
+  transition: filter .3s linear;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 30px #003971) brightness(200%);
+  transition: filter .3s linear;
+}
+
+.nav {
+  display: flex;
+}
+
+.nav_item {
+  padding: 0 15px;
+
+  /* font-weight: 700; */
+  color: #FFFFFF;
+  text-decoration: none;
+
+  transition: background .3s linear;
+}
+
+.nav_item:hover {
+  background-color: #00366c;
+  transition: background .3s linear;
+}
+
+.nav_item.active {
+  background-color: #00366c;
+}
+
+.header_fade {
   width: 100%;
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  height: 300px;
+  background-image: linear-gradient(#00111e 70px, transparent);
 
-  font-size: 17px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+}
 
-  color: #ffffff;
-  background-color: #00111e;
+/* Section */
+
+.section {
+  margin-top: 200px;
+  padding: 50px 0 100px;
+  line-height: 30px;
+  text-align: justify;
+}
+
+.section_header {
+  font-size: 25px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.section_header:after {
+  content: "";
+  display: block;
+  margin: 20px auto 30px;
+
+  width: 400px;
+  height: 1px;
+
+  background-image: radial-gradient(#ffffff -30%, transparent);
+}
+
+.container p {
+  max-width: 750px;
+  margin: 15px auto;
+}
+
+.menu_inner {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.menu_item {
+  padding: 10px 30px;
+
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  transition: color .3s linear;
+
+  border-bottom: 1px #ffffff solid;
+}
+
+.menu_item:hover {
+  border-top: 1px #30ff58 solid;
+  border-bottom: 1px #30ff58 solid;
+  color: #30ff58;
+  transition: color .3s linear;
 }
 </style>
