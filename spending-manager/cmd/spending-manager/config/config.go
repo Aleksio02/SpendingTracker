@@ -13,18 +13,16 @@ type appConfig struct {
 		Version string
 		Port    int
 	}
-	// Пример переменной, загружаемой в функции LoadConfig
 	ConfigVar string
 }
 
-// LoadConfig загружает конфигурацию из файлов
 func LoadConfig(configPaths ...string) error {
 	v := viper.New()
-	v.SetConfigName("application") // <- имя конфигурационного файла
+	v.SetConfigName("application")
 	v.SetConfigType("yml")
 	v.AutomaticEnv()
 	for _, path := range configPaths {
-		v.AddConfigPath(path) // <- // путь для поиска конфигурационного файла в
+		v.AddConfigPath(path)
 	}
 	if err := v.ReadInConfig(); err != nil {
 		return fmt.Errorf("failed to read the configuration file: %s", err)
