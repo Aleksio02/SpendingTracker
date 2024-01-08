@@ -1,0 +1,4 @@
+application:
+  name: "spetr"
+  varsion: "0.0.1"
+  port: 8080
