@@ -13,7 +13,6 @@ type appConfig struct {
 		Version string
 		Port    int
 	}
-	ConfigVar string
 }
 
 func LoadConfig(configPaths ...string) error {
