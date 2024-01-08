@@ -8,6 +8,11 @@ import (
 var Config appConfig
 
 type appConfig struct {
+	Application struct {
+		Name    string
+		Version string
+		Port    int
+	}
 	// Пример переменной, загружаемой в функции LoadConfig
 	ConfigVar string
 }
