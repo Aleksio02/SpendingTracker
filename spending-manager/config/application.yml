@@ -1,0 +1,4 @@
+application:
+  name: "spending-manager"
+  varsion: "0.0.1"
+  port: 8080
