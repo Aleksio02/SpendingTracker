@@ -23,6 +23,9 @@ type appConfig struct {
 		Host     string
 		Port     int
 	}
+	Connector struct {
+		Auth string
+	}
 }
 
 func LoadConfig(configPaths ...string) error {

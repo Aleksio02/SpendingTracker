@@ -9,3 +9,6 @@ db:
   password: "stadmin"
   host: "localhost"
   port: 5432
+
+connector:
+  auth: "http://localhost:8081/auth"
