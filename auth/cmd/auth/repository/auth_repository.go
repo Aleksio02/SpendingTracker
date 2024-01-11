@@ -22,3 +22,16 @@ func GetUserByUsername(username string) model.User {
 	}
 	return model.User{Id: foundUser.Id, Username: foundUser.Username, Role: foundUser.Role}
 }
+
+func GetUserByUsernameAndPassword(userDTO dto.UserDTO) (dto.UserDTO, error) {
+	connection, _ := config.CreateDatabaseConnection()
+	defer connection.Close(context.Background())
+
+	row, _ := connection.Query(context.Background(), "SELECT u.id as id, username, password, r.name as role FROM users u INNER JOIN ref_user_role r ON r.id = u.role_id WHERE username = '"+userDTO.Username+"' AND password = '"+userDTO.Password+"'")
+	foundUser, err := pgx.CollectOneRow(row, pgx.RowToStructByName[dto.UserDTO])
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
+		return dto.UserDTO{}, err
+	}
+	return foundUser, nil
+}

@@ -19,6 +19,7 @@ func main() {
 		v1.GET("/system/test", controller.SystemTest)
 		v1.GET("/getUserByToken", controller.GetUserByToken)
 		v1.POST("/register", controller.RegisterUser)
+		v1.POST("/authorize", controller.Authorize)
 	}
 	r.Run(fmt.Sprintf(":%v", config.Config.Application.Port))
 }
