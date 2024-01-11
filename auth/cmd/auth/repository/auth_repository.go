@@ -1,9 +1,9 @@
-package dao
+package repository
 
 import (
 	"auth/cmd/auth/config"
-	"auth/cmd/auth/dao/dto"
 	"auth/cmd/auth/model"
+	"auth/cmd/auth/repository/dto"
 	"context"
 	"fmt"
 	"github.com/jackc/pgx/v5"
