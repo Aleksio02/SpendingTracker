@@ -17,6 +17,7 @@ func main() {
 	v1 := r.Group("/" + config.Config.Application.Name)
 	{
 		v1.GET("/system/test", controller.SystemTest)
+		v1.POST("/addSpentItem", controller.AddSpentItem)
 	}
 	r.Run(fmt.Sprintf(":%v", config.Config.Application.Port))
 }

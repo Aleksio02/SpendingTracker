@@ -1,8 +1,11 @@
 package config
 
 import (
+	"context"
 	"fmt"
+	"github.com/jackc/pgx/v5"
 	"github.com/spf13/viper"
+	"os"
 )
 
 var Config appConfig
@@ -12,6 +15,13 @@ type appConfig struct {
 		Name    string
 		Version string
 		Port    int
+	}
+	Db struct {
+		Name     string
+		Username string
+		Password string
+		Host     string
+		Port     int
 	}
 }
 
@@ -27,4 +37,19 @@ func LoadConfig(configPaths ...string) error {
 		return fmt.Errorf("failed to read the configuration file: %s", err)
 	}
 	return v.Unmarshal(&Config)
+}
+
+func CreateDatabaseConnection() (*pgx.Conn, error) {
+	connString := fmt.Sprintf("postgres://%s:%s@%s:%d/%s",
+		Config.Db.Username,
+		Config.Db.Password,
+		Config.Db.Host,
+		Config.Db.Port,
+		Config.Db.Name)
+	conn, err := pgx.Connect(context.Background(), connString)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
+		os.Exit(1)
+	}
+	return conn, err
 }

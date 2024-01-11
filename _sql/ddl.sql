@@ -30,7 +30,7 @@ CREATE TABLE spending (
                     id INTEGER DEFAULT nextval('seq_spendings') CONSTRAINT pk_spending PRIMARY KEY,
                     description VARCHAR CONSTRAINT nn_spending_description NOT NULL,
                     create_date DATE CONSTRAINT nn_spending_creation_date NOT NULL,
-                    spent INTEGER CONSTRAINT nn_spent NOT NULL,
+                    spent FLOAT CONSTRAINT nn_spent NOT NULL,
                     category_id INTEGER CONSTRAINT nn_spending_category_id NOT NULL,
                     user_id INTEGER CONSTRAINT nn_spending_user_id NOT NULL,
                     CONSTRAINT fk_spending_category FOREIGN KEY (category_id) references ref_spending_category(id),
