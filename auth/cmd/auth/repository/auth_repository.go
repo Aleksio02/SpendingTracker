@@ -24,7 +24,6 @@ func GetUserByUsername(username string) model.User {
 }
 
 func SaveUser(data dto.UserDTO) (dto.UserDTO, error) {
-	//Сохраняем экземпляр DTO в БД(PostgreSQL) и возвращаем модель пользователя
 
 	connection, _ := config.CreateDatabaseConnection()
 	defer connection.Close(context.Background())

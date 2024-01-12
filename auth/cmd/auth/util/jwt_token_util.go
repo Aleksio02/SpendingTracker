@@ -18,7 +18,6 @@ func CreateTokenForUser(data model.User) string {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, data)
 
-	// Create the actual JWT token
 	signedString, _ := token.SignedString([]byte(config.Config.Jwt.Secret))
 
 	return signedString

@@ -36,17 +36,13 @@ func GetUserByToken(c *gin.Context) {
 }
 
 func RegisterUser(data *gin.Context) {
-	//Приходит имя пользователя и пароль в теле запроса(38)
 
-	//Парсим в объект AuthRequest(42)
 	requestBody := request.AuthRequest{}
 	util.WriteBodyToObject(data.Request.Body, &requestBody)
 
 	registeredUser, err := service.RegisterUser(requestBody)
 
-	//Пользователь зарегистрирован (сохранен в БД) (53)
 	if err == nil {
-		////Регистрируем пользователя(56-61)
 		userResponse := response.UserInfoResponse{
 			Status:   200,
 			Message:  "User registered successfully",
@@ -54,11 +50,9 @@ func RegisterUser(data *gin.Context) {
 			Username: registeredUser.Username,
 			Role:     registeredUser.Role}
 
-		//Выводим статус 200(64)
 		data.JSON(http.StatusOK, userResponse)
 		return
 	}
 
-	//Пользователь с таким именем найден(64)
 	data.JSON(http.StatusBadRequest, response.UserInfoResponse{Status: 400, Message: "User with this name is exist"})
 }
