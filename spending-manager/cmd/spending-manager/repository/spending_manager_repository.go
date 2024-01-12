@@ -31,11 +31,10 @@ func GetSpendingsByUsername(username string) ([]dto.SpentItemDTO, error) {
 	connection, _ := config.CreateDatabaseConnection()
 	defer connection.Close(context.Background())
 
-	queryRow := "select * from spending where user_id = (select id from users where username = '" + username + "')"
+	queryRow := "select id, description, create_date, spent, (select name from ref_spending_category sc where sc.id = s.category_id) as category, '" + username + "' as username from spending s where user_id = (select id from users where username = '" + username + "')"
 
-	row, err := connection.Query(context.Background(), queryRow)
-	items, err := pgx.CollectRows(row, pgx.RowToStructByName[dto.SpentItemDTO])
-
+	rows, err := connection.Query(context.Background(), queryRow)
+	items, err := pgx.CollectRows(rows, pgx.RowToStructByName[dto.SpentItemDTO])
 	if err != nil {
 		return []dto.SpentItemDTO{}, errors.New("error occurred while executing SQL query")
 	}
