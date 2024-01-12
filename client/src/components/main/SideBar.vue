@@ -9,13 +9,27 @@ export default {
 		<content-block-title>Меню</content-block-title>
 		<div class="user_about_content">
 			<content-block-text>
-				<sidebar-menu-item>Подробная статистика</sidebar-menu-item>
-				<sidebar-menu-item>Календарь</sidebar-menu-item>
-				<sidebar-menu-item>Доходы</sidebar-menu-item>
-				<sidebar-menu-item>Расходы</sidebar-menu-item>
-				<sidebar-menu-item>Добавить статью дохода</sidebar-menu-item>
-				<sidebar-menu-item>Добавить статью расходов</sidebar-menu-item>
-				<sidebar-menu-item>Инвестиции</sidebar-menu-item>
+				<router-link to="/">
+					<sidebar-menu-item>Подробная статистика</sidebar-menu-item>
+				</router-link>
+				<router-link to="/calendar">
+					<sidebar-menu-item>Календарь</sidebar-menu-item>
+				</router-link>
+				<router-link to="/">
+					<sidebar-menu-item>Доходы</sidebar-menu-item>
+				</router-link>
+				<router-link to="/">
+					<sidebar-menu-item>Расходы</sidebar-menu-item>
+				</router-link>
+				<router-link to="/">
+					<sidebar-menu-item>Добавить статью дохода</sidebar-menu-item>
+				</router-link>
+				<router-link to="/calendar">
+					<sidebar-menu-item>Добавить статью расходов</sidebar-menu-item>
+				</router-link>
+				<router-link to="/">
+					<sidebar-menu-item>Инвестиции</sidebar-menu-item>
+				</router-link>
 				<router-link to="/profile-settings">
 					<sidebar-menu-item>Настройки профиля</sidebar-menu-item>
 				</router-link>

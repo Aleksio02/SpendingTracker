@@ -1,30 +1,26 @@
-<script>
-export default {
-    name: 'page-content'
-}
-</script>
-
 <template>
     <div class="page-content">
-        <content-block-title>Подробная статистика</content-block-title>
-        <div class="user_about_content">
-            <content-block-text>
-                <p>За месяц вы потратили:</p>
-            </content-block-text>
-        </div>
+        <content-block-title><slot name="title"></slot></content-block-title>
+        <content-block-text><slot></slot></content-block-text>
     </div>
 </template>
+
+<script>
+export default {
+    name: 'page-content',
+};
+</script>
 
 <style scoped>
 .page-content {
     font-family: 'Montserrat', sans-serif;
     position: relative;
-    margin-left: 360px;
+    margin: 0 auto;
+    /* margin-left: 360px; */
     margin-top: -50px;
 
     width: 800px;
     height: fit-content;
-    min-height: 1500px;
     padding: 10px 20px 50px;
 
     border-radius: 30px;

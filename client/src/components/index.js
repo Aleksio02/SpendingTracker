@@ -14,9 +14,13 @@ import PageContent from "@/components/main/PageContent.vue";
 import ContentBlockTitle from "@/components/main/ContentBlockTitle.vue";
 import ContentBlockText from "@/components/main/ContentBlockText.vue";
 
+import BarChart from "@/components/main/BarChart.vue";
+import CalendarBlock from "@/components/main/CalendarBlock.vue";
+
 export default [
     FormBlock, UsernameTextField, PasswordTextField, EmailTextField,
     FullNameTextField, BirthDateTextField, CountryTextField, CityTextField,
     SideBar, SideBarMenuItem, 
-    PageTitle, PageContent, ContentBlockTitle, ContentBlockText
+    PageTitle, PageContent, ContentBlockTitle, ContentBlockText,
+    BarChart, CalendarBlock
 ]
