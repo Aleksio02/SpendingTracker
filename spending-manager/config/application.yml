@@ -1,0 +1,14 @@
+application:
+  name: "spetr"
+  varsion: "0.0.1"
+  port: 8080
+
+db:
+  name: "stadmin"
+  username: "stadmin"
+  password: "stadmin"
+  host: "localhost"
+  port: 5432
+
+connector:
+  auth: "http://localhost:8081/auth"
