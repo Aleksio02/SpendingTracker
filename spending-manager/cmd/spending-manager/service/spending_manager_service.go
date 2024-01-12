@@ -27,3 +27,21 @@ func AddSpentItem(request request.SpendingRequest, username string) response.Spe
 		Item:    request,
 	}
 }
+
+func GetSpendingsForUser(username string) response.SpendingResponse {
+	items, _ := repository.GetSpendingsByUsername(username)
+
+	/*if err != nil {
+		return response.SpendingResponse{
+			Status:  500,
+			Message: err.Error(),
+		}
+	}*/
+
+	return response.SpendingResponse{
+		Status:  200,
+		Message: "Spent item added successfully",
+		Item:    items,
+	}
+
+}

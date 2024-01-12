@@ -26,3 +26,19 @@ func AddSpentItem(spentItem dto.SpentItemDTO) (dto.SpentItemDTO, error) {
 	spentItem.Id = id
 	return spentItem, nil
 }
+
+func GetSpendingsByUsername(username string) ([]dto.SpentItemDTO, error) {
+	connection, _ := config.CreateDatabaseConnection()
+	defer connection.Close(context.Background())
+
+	queryRow := "select * from spending where user_id = (select id from users where username = '" + username + "')"
+
+	row, err := connection.Query(context.Background(), queryRow)
+	items, err := pgx.CollectRows(row, pgx.RowToStructByName[dto.SpentItemDTO])
+
+	if err != nil {
+		return []dto.SpentItemDTO{}, errors.New("error occurred while executing SQL query")
+	}
+
+	return items, nil
+}

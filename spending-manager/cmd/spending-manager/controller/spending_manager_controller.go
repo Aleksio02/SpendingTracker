@@ -26,3 +26,17 @@ func AddSpentItem(c *gin.Context) {
 	}
 	c.JSON(http.StatusUnauthorized, response.SpendingResponse{Status: 401, Message: "You should authorize!"})
 }
+
+func GetSpendingsForUser(c *gin.Context) {
+	authResponseBody, _ := connector.GetCurrentUser(c.Request.Header)
+	currentUser := response.UserInfoResponse{}
+	util.WriteBodyToObject(authResponseBody.Body, &currentUser)
+
+	if currentUser.Status == 200 {
+		responseBody := service.GetSpendingsForUser(currentUser.Username)
+
+		c.JSON(responseBody.Status, responseBody)
+		return
+	}
+	c.JSON(http.StatusUnauthorized, response.SpendingResponse{Status: 401, Message: "You should authorize!"})
+}

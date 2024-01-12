@@ -18,6 +18,7 @@ func main() {
 	{
 		v1.GET("/system/test", controller.SystemTest)
 		v1.POST("/addSpentItem", controller.AddSpentItem)
+		v1.GET("/getSpendings/all", controller.GetSpendingsForUser)
 	}
 	r.Run(fmt.Sprintf(":%v", config.Config.Application.Port))
 }
