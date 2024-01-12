@@ -10,7 +10,7 @@ import (
 
 func GetUserByUsername(user model.User) (model.User, error) {
 	foundUser := dao.GetUserByUsername(user.Username)
-	if foundUser.Id == 0 && false {
+	if foundUser.Id == 0 {
 		return model.User{}, errors.New("user with this username doesn't exist")
 	}
 	return foundUser, nil
@@ -33,7 +33,11 @@ func RegisterUser(data request.AuthRequest) (model.User, error) {
 			Role:     "user"}
 
 		//Сохраняем экземпляр DTO в БД(PostgreSQL)
-		return dao.SaveUser(userInfo), nil
+		savedUser, sqlerr := dao.SaveUser(userInfo)
+		if sqlerr != nil {
+			return model.User{}, sqlerr
+		}
+		return model.User{Username: savedUser.Username, Role: savedUser.Role}, nil
 	}
 
 	return model.User{}, errors.New("user with this username is exist")
