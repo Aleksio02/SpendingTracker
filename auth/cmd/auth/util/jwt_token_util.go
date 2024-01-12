@@ -11,3 +11,14 @@ func ParseJWTToken(jwtToken string, objectToWrite *model.User) (*jwt.Token, erro
 		return []byte(config.Config.Jwt.Secret), nil
 	})
 }
+
+func CreateTokenForUser(data model.User) string {
+
+	data.RegisteredClaims = jwt.RegisteredClaims{}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, data)
+
+	signedString, _ := token.SignedString([]byte(config.Config.Jwt.Secret))
+
+	return signedString
+}

@@ -5,6 +5,7 @@ import (
 	"auth/cmd/auth/model"
 	"auth/cmd/auth/repository/dto"
 	"context"
+	"errors"
 	"fmt"
 	"github.com/jackc/pgx/v5"
 	"os"
@@ -18,7 +19,21 @@ func GetUserByUsername(username string) model.User {
 	foundUser, err := pgx.CollectOneRow(row, pgx.RowToStructByName[dto.UserDTO])
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
-		os.Exit(1)
 	}
 	return model.User{Id: foundUser.Id, Username: foundUser.Username, Role: foundUser.Role}
+}
+
+func SaveUser(data dto.UserDTO) (dto.UserDTO, error) {
+
+	connection, _ := config.CreateDatabaseConnection()
+	defer connection.Close(context.Background())
+
+	_, err := connection.Query(context.Background(), "INSERT INTO users(username, password, role_id) VALUES ('"+data.Username+"', '"+data.Password+"', (select id from ref_user_role where name = '"+data.Role+"'))")
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
+		return dto.UserDTO{}, errors.New("error occurred while executing SQL query")
+	}
+
+	return data, nil
 }

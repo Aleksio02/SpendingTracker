@@ -40,6 +40,19 @@ func RegisterUser(data *gin.Context) {
 	requestBody := request.AuthRequest{}
 	util.WriteBodyToObject(data.Request.Body, &requestBody)
 
-	responseInfo := response.UserInfoResponse{Status: 200, Message: "User registered successfully", Token: "jfdkjkjdkfhdjnkdjokdokspkp", Username: requestBody.Username, Role: "admin"}
-	data.JSON(http.StatusOK, responseInfo)
+	registeredUser, err := service.RegisterUser(requestBody)
+
+	if err == nil {
+		userResponse := response.UserInfoResponse{
+			Status:   200,
+			Message:  "User registered successfully",
+			Token:    util.CreateTokenForUser(registeredUser),
+			Username: registeredUser.Username,
+			Role:     registeredUser.Role}
+
+		data.JSON(http.StatusOK, userResponse)
+		return
+	}
+
+	data.JSON(http.StatusBadRequest, response.UserInfoResponse{Status: 400, Message: "User with this name is exist"})
 }
