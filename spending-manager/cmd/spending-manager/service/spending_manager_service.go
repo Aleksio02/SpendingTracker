@@ -40,7 +40,7 @@ func GetSpendingsForUser(username string) response.SpendingResponse {
 
 	return response.SpendingResponse{
 		Status:  200,
-		Message: "Spent item added successfully",
+		Message: "Success",
 		Item:    items,
 	}
 
