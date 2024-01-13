@@ -1,12 +1,14 @@
 package controller
 
 import (
+	"auth/cmd/auth/config"
 	"auth/cmd/auth/model"
 	request "auth/cmd/auth/model/request"
 	response "auth/cmd/auth/model/response"
 	"auth/cmd/auth/service"
 	"auth/cmd/auth/util"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
 	"net/http"
 	"strings"
 )
@@ -55,4 +57,21 @@ func RegisterUser(data *gin.Context) {
 	}
 
 	data.JSON(http.StatusBadRequest, response.UserInfoResponse{Status: 400, Message: "User with this name is exist"})
+}
+func Authorize(data *gin.Context) {
+	requestBody := request.AuthRequest{}
+	util.WriteBodyToObject(data.Request.Body, &requestBody)
+
+	currentUser, err := service.Authorize(requestBody)
+
+	if err != nil {
+		data.JSON(http.StatusNotFound, response.UserInfoResponse{Status: 404, Message: "Incorrect username or password"})
+		return
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, currentUser)
+	signedString, _ := token.SignedString([]byte(config.Config.Jwt.Secret))
+
+	responseInfo := response.UserInfoResponse{Status: 200, Message: "User authorized successfully", Token: signedString, Username: requestBody.Username, Role: currentUser.Role}
+	data.JSON(http.StatusOK, responseInfo)
 }
