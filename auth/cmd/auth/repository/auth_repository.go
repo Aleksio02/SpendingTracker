@@ -37,3 +37,15 @@ func SaveUser(data dto.UserDTO) (dto.UserDTO, error) {
 
 	return data, nil
 }
+func GetUserByUsernameAndPassword(userDTO dto.UserDTO) (dto.UserDTO, error) {
+	connection, _ := config.CreateDatabaseConnection()
+	defer connection.Close(context.Background())
+
+	row, _ := connection.Query(context.Background(), "SELECT u.id as id, username, password, r.name as role FROM users u INNER JOIN ref_user_role r ON r.id = u.role_id WHERE username = '"+userDTO.Username+"' AND password = '"+userDTO.Password+"'")
+	foundUser, err := pgx.CollectOneRow(row, pgx.RowToStructByName[dto.UserDTO])
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
+		return dto.UserDTO{}, err
+	}
+	return foundUser, nil
+}

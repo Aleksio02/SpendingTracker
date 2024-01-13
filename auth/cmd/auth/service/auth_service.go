@@ -16,6 +16,17 @@ func GetUserByUsername(user model.User) (model.User, error) {
 	return foundUser, nil
 }
 
+func Authorize(request request.AuthRequest) (model.User, error) {
+	userDTO := dto.UserDTO{Username: request.Username, Password: request.Password}
+
+	foundUserDTO, err := repository.GetUserByUsernameAndPassword(userDTO)
+
+	if err != nil {
+		return model.User{}, errors.New("incorrect username or password")
+	}
+	return model.User{Username: foundUserDTO.Username, Role: foundUserDTO.Role}, nil
+}
+
 func RegisterUser(data request.AuthRequest) (model.User, error) {
 
 	nameUser := model.User{
