@@ -1,13 +1,13 @@
 <template>
     <div class='signup_form'>
-        <form id="login" name="form" action="" method="post">
+        <form id="login" @submit.prevent="login">
 
             <page-title>Вход на сайт</page-title>
             <form-block>
-                <username-text-field />
+                <username-text-field :value="username" @input="username = $event" inputId="username"/>
             </form-block>
             <form-block>
-                <password-text-field>Пароль</password-text-field>
+                <password-text-field :value="password" @input="password = $event" inputId="password">Пароль</password-text-field>
             </form-block>
             <input id="submit" class="submit_btn" type="submit" name="submit" value="Войти">
 
@@ -18,48 +18,49 @@
 </template>
 
 <script>
+import { saveToken, checkToken } from '../modules/auth';
+
 export default {
-    data() {
-        return {
-            login: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            agreeTerms: true
-        };
-    },
-    methods: {
-        register() {
-            // Verify password match
-            if (this.password !== this.confirmPassword) {
-                console.log('Passwords do not match');
-                return;
-            }
+	data() {
+		return {
+			username: '',
+			password: '',
+		};
+	},
+	created() {
+		checkToken();
+	},
+	methods: {
+		async login(event) {
+			event.preventDefault();
 
-            // Verify terms agreement
-            if (!this.agreeTerms) {
-                console.log('Please agree to the terms of service');
-                return;
-            }
+			try {
+				const response = await fetch('/auth/authorize', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						username: this.username,
+						password: this.password
+					})
+				});
 
-            // Registration logic
-            console.log('Registration Details:', {
-                login: this.login,
-                email: this.email,
-                password: this.password
-            });
+				const data = await response.json();
+				console.log(data);
 
-            // Clear form fields after successful registration
-            this.login = '';
-            this.email = '';
-            this.password = '';
-            this.confirmPassword = '';
-            this.agreeTerms = true;
-        },
-        switchPage(page) {
-            this.$emit('switch-page', page);
-        }
-    }
+				if (data['status'] == '200') {
+					saveToken(data['token']);
+					this.$router.push('/');
+				} else {
+					alert(data['message']);
+				}
+
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	}
 };
 </script>
   

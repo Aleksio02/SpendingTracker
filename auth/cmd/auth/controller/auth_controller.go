@@ -7,10 +7,11 @@ import (
 	response "auth/cmd/auth/model/response"
 	"auth/cmd/auth/service"
 	"auth/cmd/auth/util"
-	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
 	"net/http"
 	"strings"
+
+	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 func GetUserByToken(c *gin.Context) {

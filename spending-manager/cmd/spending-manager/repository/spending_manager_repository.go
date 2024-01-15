@@ -4,14 +4,21 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/jackc/pgx/v5"
 	"spending-manager/cmd/spending-manager/config"
 	"spending-manager/cmd/spending-manager/repository/dto"
+
+	"github.com/jackc/pgx/v5"
 )
 
 func AddSpentItem(spentItem dto.SpentItemDTO) (dto.SpentItemDTO, error) {
 	connection, _ := config.CreateDatabaseConnection()
 	defer connection.Close(context.Background())
+
+	fmt.Println(spentItem.Description)
+	fmt.Println(spentItem.CreateDate)
+	fmt.Println(spentItem.Spent)
+	fmt.Println(spentItem.Category)
+	fmt.Println(spentItem.Username)
 
 	queryRow := fmt.Sprintf("insert into spending(description, create_date, spent, category_id, user_id) values ('%s', TO_DATE('%s', 'YYYY-MM-DDTHH24:MI:SSZ'), %f, (SELECT id FROM ref_spending_category WHERE name = '%s'),(SELECT id FROM users WHERE username = '%s')) RETURNING id",
 		spentItem.Description, spentItem.CreateDate, spentItem.Spent, spentItem.Category, spentItem.Username)

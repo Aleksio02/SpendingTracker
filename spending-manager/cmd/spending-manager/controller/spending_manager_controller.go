@@ -1,13 +1,15 @@
 package controller
 
 import (
-	"github.com/gin-gonic/gin"
+	"fmt"
 	"net/http"
 	"spending-manager/cmd/spending-manager/connector"
 	. "spending-manager/cmd/spending-manager/model/request"
 	"spending-manager/cmd/spending-manager/model/response"
 	"spending-manager/cmd/spending-manager/service"
 	"spending-manager/cmd/spending-manager/util"
+
+	"github.com/gin-gonic/gin"
 )
 
 func AddSpentItem(c *gin.Context) {
@@ -15,6 +17,7 @@ func AddSpentItem(c *gin.Context) {
 	util.WriteBodyToObject(c.Request.Body, &requestBody)
 
 	authResponseBody, _ := connector.GetCurrentUser(c.Request.Header)
+	fmt.Println(requestBody)
 	currentUser := response.UserInfoResponse{}
 	util.WriteBodyToObject(authResponseBody.Body, &currentUser)
 

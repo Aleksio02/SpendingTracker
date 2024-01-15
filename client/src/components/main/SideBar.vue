@@ -15,19 +15,19 @@ export default {
 				<router-link to="/calendar">
 					<sidebar-menu-item>Календарь</sidebar-menu-item>
 				</router-link>
-				<router-link to="/">
+				<router-link to="/calendar">
 					<sidebar-menu-item>Доходы</sidebar-menu-item>
 				</router-link>
-				<router-link to="/">
+				<router-link to="/calendar">
 					<sidebar-menu-item>Расходы</sidebar-menu-item>
 				</router-link>
-				<router-link to="/">
+				<router-link to="/calendar">
 					<sidebar-menu-item>Добавить статью дохода</sidebar-menu-item>
 				</router-link>
-				<router-link to="/calendar">
+				<router-link to="/add-expense">
 					<sidebar-menu-item>Добавить статью расходов</sidebar-menu-item>
 				</router-link>
-				<router-link to="/">
+				<router-link to="/calendar">
 					<sidebar-menu-item>Инвестиции</sidebar-menu-item>
 				</router-link>
 				<router-link to="/profile-settings">

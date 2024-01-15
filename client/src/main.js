@@ -14,4 +14,5 @@ components.forEach(component => app.component(component.name, component))
 
 app.use(PrimeVue);
 app.use(router);
+
 app.mount('#app');

@@ -3,8 +3,7 @@
         <page-title>Настройки профиля</page-title>
 
         <div class="settings_inner">
-            <form id="settings_form" action="<?php bloginfo('template_directory')?>/registration/edit_profile.php"
-                method="post" style="max-width: 500px" enctype="multipart/form-data">
+            <form id="settings_form" style="max-width: 500px" enctype="multipart/form-data">
 
                 <form-block>
                     <username-text-field />
@@ -13,7 +12,7 @@
                     <fullname-text-field />
                 </form-block>
                 <form-block>
-                    <birthdate-text-field />
+                    <date-text-field>Дата рождения</date-text-field>
                 </form-block>
                 <form-block>
                     <country-text-field />
@@ -54,49 +53,13 @@
 </template>
   
 <script>
+import { checkToken } from '../modules/auth';
+
 export default {
-    data() {
-        return {
-            login: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            agreeTerms: true
-        };
-    },
-    methods: {
-        register() {
-            // Verify password match
-            if (this.password !== this.confirmPassword) {
-                console.log('Passwords do not match');
-                return;
-            }
-
-            // Verify terms agreement
-            if (!this.agreeTerms) {
-                console.log('Please agree to the terms of service');
-                return;
-            }
-
-            // Registration logic
-            console.log('Registration Details:', {
-                login: this.login,
-                email: this.email,
-                password: this.password
-            });
-
-            // Clear form fields after successful registration
-            this.login = '';
-            this.email = '';
-            this.password = '';
-            this.confirmPassword = '';
-            this.agreeTerms = true;
-        },
-        switchPage(page) {
-            this.$emit('switch-page', page);
-        }
-    }
-};
+	created() {
+		checkToken();
+	},
+}
 </script>
   
 <style scoped>

@@ -2,96 +2,68 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Категория</th>
-                <th>Описание</th>
-                <th>Дата создания</th>
-                <th>Потрачено</th>
+                <td>ID</td>
+                <td>Категория</td>
+                <td>Описание</td>
+                <td>Дата создания</td>
+                <td>Потрачено</td>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>76859</th>
-                <th>Машина</th>
-                <th>-</th>
-                <th>17.04.23</th>
-                <th>69.05 руб.</th>
-            </tr>
-            <tr>
-                <th>53525</th>
-                <th>Кофе</th>
-                <th>-</th>
-                <th>23.05.14</th>
-                <th>653.34 руб.</th>
-            </tr>
-            <tr>
-                <th>76859</th>
-                <th>Машина</th>
-                <th>-</th>
-                <th>17.04.23</th>
-                <th>69.05 руб.</th>
-            </tr>
-            <tr>
-                <th>53525</th>
-                <th>Кофе</th>
-                <th>-</th>
-                <th>23.05.14</th>
-                <th>653.34 руб.</th>
-            </tr>
-            <tr>
-                <th>76859</th>
-                <th>Машина</th>
-                <th>-</th>
-                <th>17.04.23</th>
-                <th>69.05 руб.</th>
-            </tr>
-            <tr>
-                <th>53525</th>
-                <th>Кофе</th>
-                <th>-</th>
-                <th>23.05.14</th>
-                <th>653.34 руб.</th>
-            </tr>
-            <tr>
-                <th>76859</th>
-                <th>Машина</th>
-                <th>-</th>
-                <th>17.04.23</th>
-                <th>69.05 руб.</th>
-            </tr>
-            <tr>
-                <th>53525</th>
-                <th>Кофе</th>
-                <th>-</th>
-                <th>23.05.14</th>
-                <th>653.34 руб.</th>
-            </tr>
-            <tr>
-                <th>53525</th>
-                <th>Кофе</th>
-                <th>-</th>
-                <th>23.05.14</th>
-                <th>653.34 руб.</th>
-            </tr>
-            <tr>
-                <th>76859</th>
-                <th>Машина</th>
-                <th>-</th>
-                <th>17.04.23</th>
-                <th>69.05 руб.</th>
-            </tr>
-            <tr>
-                <th>53525</th>
-                <th>Кофе</th>
-                <th>-</th>
-                <th>23.05.14</th>
-                <th>653.34 руб.</th>
+            <tr v-for="(spending, index) in spendings" :key="index">
+                <td>{{ spending.Id }}</td>
+                <td>{{ spending.Category }}</td>
+                <td>{{ spending.Description }}</td>
+                <td>{{ formatDate(spending.createdAt) }}</td>
+                <td>{{ spending.Spent }}</td>
             </tr>
         </tbody>
     </table>
 </template>
 
-<script></script>
+<script>
+import { checkToken, getToken } from '../../../modules/auth';
+import moment from 'moment';
+
+export default {
+    data() {
+        return {
+            spendings: [],
+        };
+    },
+    created() {
+        checkToken();
+        this.getData();
+    },
+    methods: {
+        async getData() {
+            try {
+                const response = await fetch('/spetr/getSpendings/all', {
+                    headers: {
+                        'Authorization': 'Bearer ' + getToken(),
+                        'Content-Type': 'application/json'  // Пример добавления других заголовков
+                    },
+                });
+
+                const data = await response.json();
+                console.log(data);
+
+                if (data['status'] == '200') {
+                    this.spendings = data.item;
+                } else {
+                    alert(data['message']);
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        formatDate(date) {
+            return moment(date).locale('ru').format('LL LT');
+        }
+    }
+};
+</script>
   
 <style scoped>
 table {
@@ -104,7 +76,7 @@ table {
     z-index: 2;
 }
 
-thead th {
+thead td {
     color: #71FF90;
 }
 
@@ -121,7 +93,7 @@ tbody tr {
     vertical-align: inherit;
 }
 
-table th {
+table td {
     font-weight: 400;
     padding: 0.5em 0.75em;
     vertical-align: top;
@@ -131,7 +103,7 @@ table tr:nth-last-child(-n+1) {
     border-width: 0;
 }
 
-table tr th:first-child {
+table tr td:first-child {
     color: #ffc59b;
 }
 </style>

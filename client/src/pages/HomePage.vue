@@ -4,6 +4,13 @@
 </template>
 
 <script>
+import { checkToken } from '../modules/auth';
+
+export default {
+	created() {
+		checkToken();
+	},
+}
 </script>
   
 <style scoped>

@@ -4,6 +4,7 @@ import (
 	"auth/cmd/auth/config"
 	"auth/cmd/auth/controller"
 	"fmt"
+
 	"github.com/gin-gonic/gin"
 )
 

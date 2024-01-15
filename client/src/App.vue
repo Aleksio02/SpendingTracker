@@ -6,22 +6,18 @@
         <div class="header_inner">
 
             <div class="user_info">
-                <div class="profile_photo"
-                    style="background: url('<?php bloginfo('template_directory')?>/uploads/profile_photos/<?= $cur_user_avatar ?>') center no-repeat; background-size: cover">
+                <div class="profile_photo" style="background: #555555 center no-repeat; background-size: cover">
                 </div>
 
                 <div class="user_top">
                     <div class="user_icons">
-                        <a class='logout_btn' href="<?php bloginfo('template_directory')?>/registration/logout.php">
-                            <img class="icon logout" src="./assets/icons/logout.png" alt="">
-                        </a>
+                        <img class="icon logout" src="./assets/icons/logout.png" alt="" v-on:click="logoutUser">
                         <img class="icon" src="./assets/icons/notifications.png" alt="">
                         <img class="icon" src="./assets/icons/rating.png" alt="">
                     </div>
 
-                    <a class="user_name" href="http://localhost/DVA_studio/login/">Владимир Двойнишников</a>
+                    <router-link to="/" class="user_name">{{ user.username ? user.username : "-" }}</router-link>
                 </div>
-
             </div>
 
             <div class="nav" id="nav">
@@ -55,8 +51,23 @@
 </template>
 
 <script>
+import { deleteSession } from './modules/auth';
+
 export default {
     name: 'App',
+    data() {
+        return {
+            user: {
+                username: '',
+            },
+        }
+    },
+    mounted() {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+            this.user = JSON.parse(userData);
+        }
+    },
     computed: {
         isLoginPage() {
             return this.$route.path === '/login'; // Проверка текущего маршрута на страницу входа (login)
@@ -65,9 +76,11 @@ export default {
             return this.$route.path === '/register'; // Проверка текущего маршрута на страницу регистрации (register)
         }
     },
-    // created() {
-    //     this.$router.push('/table-view');
-    // },
+    methods: {
+        logoutUser() {
+            deleteSession();
+        }
+    }
 }
 </script>
 
@@ -75,6 +88,7 @@ export default {
 * {
     box-sizing: content-box;
 }
+
 .chart {
     margin-bottom: 30px;
 }

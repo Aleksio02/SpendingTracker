@@ -2,8 +2,9 @@ package controller
 
 import (
 	stresponse "auth/cmd/auth/model/response"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func SystemTest(c *gin.Context) {

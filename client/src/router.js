@@ -11,6 +11,7 @@ import StatsTabTable from './components/main/sidebarMenuTabs/StatsTabTable.vue';
 import StatsTabGraphics from './components/main/sidebarMenuTabs/StatsTabGraphics.vue';
 
 import SidebarCalendarTab from './components/main/sidebarMenuTabs/SidebarCalendarTab.vue';
+import SidebarAddExpenseTab from './components/main/sidebarMenuTabs/SidebarAddExpenseTab.vue';
 
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -29,7 +30,8 @@ const routes = [
           { path: '/graphics-view', component: StatsTabGraphics }
         ]
       },
-      { path: '/calendar', component: SidebarCalendarTab }
+      { path: '/calendar', component: SidebarCalendarTab },
+      { path: '/add-expense', component: SidebarAddExpenseTab }
     ]
   },
 ];

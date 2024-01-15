@@ -3,9 +3,11 @@ import PasswordTextField from "@/components/account/PasswordTextField.vue";
 import EmailTextField from "@/components/account/EmailTextField.vue";
 import FormBlock from "@/components/account/FormBlock.vue";
 import FullNameTextField from "@/components/account/FullNameTextField.vue";
-import BirthDateTextField from "@/components/account/BirthDateTextField.vue";
+import DateTextField from "@/components/account/DateTextField.vue";
 import CountryTextField from "@/components/account/CountryTextField.vue";
 import CityTextField from "@/components/account/CityTextField.vue";
+import InputTextField from "@/components/account/InputTextField.vue";
+import NumberTextField from "@/components/account/NumberTextField.vue";
 
 import SideBar from "@/components/main/SideBar.vue";
 import SideBarMenuItem from "@/components/main/SideBarMenuItem.vue";
@@ -19,7 +21,7 @@ import CalendarBlock from "@/components/main/CalendarBlock.vue";
 
 export default [
     FormBlock, UsernameTextField, PasswordTextField, EmailTextField,
-    FullNameTextField, BirthDateTextField, CountryTextField, CityTextField,
+    FullNameTextField, DateTextField, CountryTextField, CityTextField, InputTextField, NumberTextField,
     SideBar, SideBarMenuItem, 
     PageTitle, PageContent, ContentBlockTitle, ContentBlockText,
     BarChart, CalendarBlock
