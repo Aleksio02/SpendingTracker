@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"spending-manager/cmd/spending-manager/config"
 	"spending-manager/cmd/spending-manager/controller"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {

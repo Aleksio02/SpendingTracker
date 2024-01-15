@@ -3,9 +3,10 @@ package config
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/jackc/pgx/v5"
 	"github.com/spf13/viper"
-	"os"
 )
 
 var Config appConfig
