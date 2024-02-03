@@ -41,6 +41,7 @@ func RegisterUser(data *gin.Context) {
 
 	requestBody := request.AuthRequest{}
 	util.WriteBodyToObject(data.Request.Body, &requestBody)
+	requestBody.Role = "user"
 
 	registeredUser, err := service.RegisterUser(requestBody)
 
@@ -74,4 +75,46 @@ func Authorize(data *gin.Context) {
 
 	responseInfo := response.UserInfoResponse{Status: 200, Message: "User authorized successfully", Token: signedString, Username: requestBody.Username, Role: currentUser.Role}
 	data.JSON(http.StatusOK, responseInfo)
+}
+
+func CreateUserByAdmin(data *gin.Context) {
+	// Getting current user by jwt token
+	var currentUser model.User
+	var err error
+	authorizationHeaderValue := data.GetHeader("Authorization")
+	if len(authorizationHeaderValue) > 0 {
+		jwtToken := strings.Split(authorizationHeaderValue, " ")[1]
+		decodedUser := model.User{}
+		var token *jwt.Token
+		token, err = util.ParseJWTToken(jwtToken, &decodedUser)
+
+		if err == nil && token.Valid {
+			currentUser, err = service.GetUserByUsername(decodedUser)
+		}
+	}
+	/////////////////////////////////////////
+
+	if err != nil || currentUser.Role != "admin" {
+		data.JSON(http.StatusForbidden, response.UserInfoResponse{Status: 403, Message: "Only admin can do it!"})
+		return
+	}
+
+	requestBody := request.AuthRequest{}
+	util.WriteBodyToObject(data.Request.Body, &requestBody)
+
+	registeredUser, err := service.RegisterUser(requestBody)
+
+	if err == nil {
+		userResponse := response.UserInfoResponse{
+			Status:   200,
+			Message:  "User registered successfully",
+			Token:    util.CreateTokenForUser(registeredUser),
+			Username: registeredUser.Username,
+			Role:     registeredUser.Role}
+
+		data.JSON(http.StatusOK, userResponse)
+		return
+	}
+
+	data.JSON(http.StatusBadRequest, response.UserInfoResponse{Status: 400, Message: "User with this name is exist"})
 }

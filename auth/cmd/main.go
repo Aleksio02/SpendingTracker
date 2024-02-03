@@ -20,6 +20,7 @@ func main() {
 		v1.GET("/getUserByToken", controller.GetUserByToken)
 		v1.POST("/register", controller.RegisterUser)
 		v1.POST("/authorize", controller.Authorize)
+		v1.POST("/createUserByAdmin", controller.CreateUserByAdmin)
 	}
 	r.Run(fmt.Sprintf(":%v", config.Config.Application.Port))
 }
