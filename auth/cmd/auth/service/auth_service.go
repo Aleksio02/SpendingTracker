@@ -38,7 +38,7 @@ func RegisterUser(data request.AuthRequest) (model.User, error) {
 		userInfo := dto.UserDTO{
 			Username: data.Username,
 			Password: data.Password,
-			Role:     "user"}
+			Role:     data.Role}
 
 		savedUser, sqlerr := repository.SaveUser(userInfo)
 		if sqlerr != nil {
